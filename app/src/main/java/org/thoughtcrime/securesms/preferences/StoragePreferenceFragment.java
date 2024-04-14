@@ -43,29 +43,9 @@ import java.text.NumberFormat;
 
 public class StoragePreferenceFragment extends ListSummaryPreferenceFragment {
 
-  private Preference keepMessages;
-  private Preference trimLength;
-
   @Override
   public void onCreate(@Nullable Bundle paramBundle) {
     super.onCreate(paramBundle);
-
-    findPreference("pref_storage_clear_message_history")
-            .setOnPreferenceClickListener(new ClearMessageHistoryClickListener());
-
-    trimLength = findPreference(SettingsValues.THREAD_TRIM_LENGTH);
-    trimLength.setOnPreferenceClickListener(p -> {
-      updateToolbarTitle(R.string.preferences__conversation_length_limit);
-      pushFragment(BaseSettingsFragment.create(new ConversationLengthLimitConfiguration()));
-      return true;
-    });
-
-    keepMessages = findPreference(SettingsValues.KEEP_MESSAGES_DURATION);
-    keepMessages.setOnPreferenceClickListener(p -> {
-      updateToolbarTitle(R.string.preferences__keep_messages);
-      pushFragment(BaseSettingsFragment.create(new KeepMessagesConfiguration()));
-      return true;
-    });
 
     StoragePreferenceCategory       storageCategory = (StoragePreferenceCategory) findPreference("pref_storage_category");
     FragmentActivity                activity        = requireActivity();
@@ -90,11 +70,6 @@ public class StoragePreferenceFragment extends ListSummaryPreferenceFragment {
     ApplicationPreferencesViewModel viewModel = ApplicationPreferencesViewModel.getApplicationPreferencesViewModel(activity);
 
     viewModel.refreshStorageBreakdown(activity.getApplicationContext());
-
-    keepMessages.setSummary(SignalStore.settings().getKeepMessagesDuration().getStringResource());
-
-    trimLength.setSummary(SignalStore.settings().isTrimByLengthEnabled() ? getResources().getQuantityString(R.plurals.preferences_storage__s_messages_plural, SignalStore.settings().getThreadTrimLength(), NumberFormat.getInstance().format(SignalStore.settings().getThreadTrimLength()))
-                                                                         : getString(R.string.preferences_storage__none));
   }
 
   @Override
@@ -115,34 +90,7 @@ public class StoragePreferenceFragment extends ListSummaryPreferenceFragment {
         .commit();
   }
 
-  private class ClearMessageHistoryClickListener implements Preference.OnPreferenceClickListener {
-    @Override
-    public boolean onPreferenceClick(@NonNull Preference preference) {
-      new MaterialAlertDialogBuilder(requireActivity())
-          .setTitle(R.string.preferences_storage__clear_message_history)
-          .setMessage(R.string.preferences_storage__this_will_delete_all_message_history_and_media_from_your_device)
-          .setPositiveButton(R.string.delete, (d, w) -> showAreYouReallySure())
-          .setNegativeButton(android.R.string.cancel, null)
-          .show();
-
-      return true;
-    }
-
-    private void showAreYouReallySure() {
-      new MaterialAlertDialogBuilder(requireActivity())
-          .setTitle(R.string.preferences_storage__are_you_sure_you_want_to_delete_all_message_history)
-          .setMessage(R.string.preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone)
-          .setPositiveButton(R.string.preferences_storage__delete_all_now, (d, w) -> {
-            SignalExecutors.BOUNDED.execute(() -> {
-              SignalDatabase.threads().deleteAllConversations();
-              ApplicationDependencies.getMessageNotifier().updateNotification(requireContext());
-            });
-          })
-          .setNegativeButton(android.R.string.cancel, null)
-          .show();
-    }
-  }
-
+  /*
   public static class KeepMessagesConfiguration extends BaseSettingsFragment.Configuration implements SingleSelectSetting.SingleSelectSelectionChangedListener {
 
     @Override
@@ -309,4 +257,5 @@ public class StoragePreferenceFragment extends ListSummaryPreferenceFragment {
       }
     }
   }
+*/
 }

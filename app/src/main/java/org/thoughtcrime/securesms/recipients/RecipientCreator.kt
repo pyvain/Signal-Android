@@ -149,6 +149,8 @@ object RecipientCreator {
       callVibrate = record.callVibrateState,
       isBlocked = record.isBlocked,
       expiresInSeconds = record.expireMessages,
+      historyTrimDelay = record.historyTrimDelay,
+      historyTrimLength = record.historyTrimLength,
       participantIdsValue = participantIds ?: LinkedList(),
       isActiveGroup = groupRecord.map { it.isActive }.orElse(false),
       profileName = record.signalProfileName,

@@ -8,6 +8,8 @@ data class DataAndStorageSettingsState(
   val mobileAutoDownloadValues: Set<String>,
   val wifiAutoDownloadValues: Set<String>,
   val roamingAutoDownloadValues: Set<String>,
+  val universalHistoryTrimDelay: Long,
+  val universalHistoryTrimLength: Long,
   val callDataMode: CallDataMode,
   val isProxyEnabled: Boolean,
   val sentMediaQuality: SentMediaQuality

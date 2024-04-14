@@ -540,6 +540,16 @@ class ConversationSettingsFragment : DSLSettingsFragment(
         )
       }
 
+      clickPref(
+        title = DSLSettingsText.from(R.string.MessageHistorySettingsFragment__message_history),
+        //summary = DSLSettingsText.from("TODO"),
+        icon = DSLSettingsIcon.from(R.drawable.symbol_data_24),
+        onClick = {
+          val action = ConversationSettingsFragmentDirections.actionConversationSettingsFragmentToMessageHistorySettingsFragment(state.recipient.id)
+          navController.safeNavigate(action)
+        }
+      )
+
       state.withRecipientSettingsState { recipientState ->
         when (recipientState.contactLinkState) {
           ContactLinkState.OPEN -> {

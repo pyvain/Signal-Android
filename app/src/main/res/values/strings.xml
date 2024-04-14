@@ -4771,6 +4771,42 @@
     <string name="SoundsAndNotificationsSettingsFragment__do_not_notify">Do not notify</string>
     <string name="SoundsAndNotificationsSettingsFragment__custom_notifications">Custom notifications</string>
 
+    <!-- MessageHistorySettingsFragment -->
+    <string name="MessageHistorySettingsFragment__message_history">Message history</string>
+    <string name="MessageHistorySettingsFragment__keep_messages">Keep messages</string>
+    <string name="MessageHistorySettingsFragment__conversation_length_limit">Chat length limit</string>
+    <string name="MessageHistorySettingsFragment__use_universal_setting">Use universal setting</string>
+    <string name="MessageHistorySettingsFragment__universal">%1$s (Universal)</string>
+    <string name="MessageHistorySettingsFragment__set">Set</string>
+    <string name="MessageHistorySettingsFragment__delete">Delete</string>
+    <string name="MessageHistorySettingsFragment__description_chat">When enabled, this chat will only keep the most recent messages. This affects messages on this device only. Use disappearing messages if you want to remove them from other places.</string>
+    <string name="MessageHistorySettingsFragment__description_universal">When enabled, all conversations which do not have a dedicated setting will only keep the most recent messages. This affects messages on this device only. Use disappearing messages if you want to remove them from other places.</string>
+
+    <!-- MessageHistoryLengthSettingsFragment -->
+    <string name="MessageHistoryLengthSettingsFragment__unlimited">Unlimited</string>
+    <plurals name="MessageHistoryLengthSettingsFragment__s_messages_plural">
+        <item quantity="one">%1$s message</item>
+        <item quantity="other">%1$s messages</item>
+    </plurals>
+    <string name="MessageHistoryLengthSettingsFragment__custom_length">Custom length</string>
+    <plurals name="MessageHistoryLengthSettingsFragment__this_will_permanently_trim_this_chat_to_the_d_most_recent_messages">
+        <item quantity="one">This will permanently trim this chat to the most recent message.</item>
+        <item quantity="other">This will permanently trim this chat to the %1$s most recent messages.</item>
+    </plurals>
+    <plurals name="MessageHistoryLengthSettingsFragment__this_will_permanently_trim_all_chats_to_the_d_most_recent_messages">
+        <item quantity="one">This will permanently trim all chats to the most recent message.</item>
+        <item quantity="other">This will permanently trim all chats to the %1$s most recent messages.</item>
+    </plurals>
+
+    <!-- MessageHistoryDelaySettingsFragment -->
+    <string name="MessageHistoryDelaySettingsFragment__forever">Forever</string>
+    <string name="MessageHistoryDelaySettingsFragment__one_year">1 year</string>
+    <string name="MessageHistoryDelaySettingsFragment__six_months">6 months</string>
+    <string name="MessageHistoryDelaySettingsFragment__thirty_days">30 days</string>
+    <string name="MessageHistoryDelaySettingsFragment__custom_duration">Custom duration</string>
+    <string name="MessageHistoryDelaySettingsFragment__this_will_permanently_delete_message_history_and_media_in_this_chat">This will permanently delete message history and media in this chat from your device that are older than %1$s.</string>
+    <string name="MessageHistoryDelaySettingsFragment__this_will_permanently_delete_all_message_history_and_media">This will permanently delete all message history and media from your device that are older than %1$s.</string>
+
     <!-- StickerKeyboard -->
     <string name="StickerKeyboard__recently_used">Recently used</string>
 

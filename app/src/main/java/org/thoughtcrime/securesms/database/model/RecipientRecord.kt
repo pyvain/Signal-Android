@@ -43,6 +43,8 @@ data class RecipientRecord(
   val messageRingtone: Uri?,
   val callRingtone: Uri?,
   val expireMessages: Int,
+  val historyTrimDelay: Long,
+  val historyTrimLength: Long,
   val registered: RegisteredState,
   val profileKey: ByteArray?,
   val expiringProfileKeyCredential: ExpiringProfileKeyCredential?,

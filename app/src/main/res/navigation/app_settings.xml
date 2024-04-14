@@ -349,6 +349,21 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
+
+        <action
+            android:id="@+id/action_dataAndStorageSettingsFragment_to_messageHistoryDelaySettingsFragment"
+            app:destination="@id/app_settings_message_history_delay"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+        <action
+            android:id="@+id/action_dataAndStorageSettingsFragment_to_messageHistoryLengthSettingsFragment"
+            app:destination="@id/app_settings_message_history_length"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_dataAndStorageSettingsFragment_to_editProxyFragment"
             app:destination="@id/editProxyFragment"
@@ -357,6 +372,9 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
+
+    <include app:graph="@navigation/app_settings_message_history_delay" />
+    <include app:graph="@navigation/app_settings_message_history_length" />
 
     <fragment
         android:id="@+id/storagePreferenceFragment"

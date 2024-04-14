@@ -57,6 +57,7 @@ import org.thoughtcrime.securesms.migrations.EmojiDownloadMigrationJob;
 import org.thoughtcrime.securesms.migrations.EmojiSearchIndexCheckMigrationJob;
 import org.thoughtcrime.securesms.migrations.IdentityTableCleanupMigrationJob;
 import org.thoughtcrime.securesms.migrations.LegacyMigrationJob;
+import org.thoughtcrime.securesms.migrations.MessageHistoryPerConvMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
 import org.thoughtcrime.securesms.migrations.OptimizeMessageSearchIndexMigrationJob;
 import org.thoughtcrime.securesms.migrations.PassingMigrationJob;
@@ -245,6 +246,7 @@ public final class JobManagerFactories {
       put(EmojiSearchIndexCheckMigrationJob.KEY,     new EmojiSearchIndexCheckMigrationJob.Factory());
       put(IdentityTableCleanupMigrationJob.KEY,      new IdentityTableCleanupMigrationJob.Factory());
       put(LegacyMigrationJob.KEY,                    new LegacyMigrationJob.Factory());
+      put(MessageHistoryPerConvMigrationJob.KEY,     new MessageHistoryPerConvMigrationJob.Factory());
       put(MigrationCompleteJob.KEY,                  new MigrationCompleteJob.Factory());
       put(OptimizeMessageSearchIndexMigrationJob.KEY,new OptimizeMessageSearchIndexMigrationJob.Factory());
       put(PinOptOutMigration.KEY,                    new PinOptOutMigration.Factory());

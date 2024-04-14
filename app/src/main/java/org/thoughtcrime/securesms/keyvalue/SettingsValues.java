@@ -43,6 +43,9 @@ public final class SettingsValues extends SignalStoreValues {
   public static final String THREAD_TRIM_LENGTH  = "pref_trim_length";
   public static final String THREAD_TRIM_ENABLED = "pref_trim_threads";
 
+  public static final String UNIVERSAL_HISTORY_TRIM_DELAY             = "settings.universal.history.trim.delay";
+  public static final String UNIVERSAL_HISTORY_TRIM_LENGTH            = "settings.universal.history.trim.length";
+
   public static final  String THEME                                   = "settings.theme";
   public static final  String MESSAGE_FONT_SIZE                       = "settings.message.font.size";
   public static final  String LANGUAGE                                = "settings.language";
@@ -102,6 +105,8 @@ public final class SettingsValues extends SignalStoreValues {
                          CALL_DATA_MODE,
                          THREAD_TRIM_LENGTH,
                          THREAD_TRIM_ENABLED,
+                         UNIVERSAL_HISTORY_TRIM_DELAY,
+                         UNIVERSAL_HISTORY_TRIM_LENGTH,
                          LANGUAGE,
                          THEME,
                          MESSAGE_FONT_SIZE,
@@ -142,29 +147,43 @@ public final class SettingsValues extends SignalStoreValues {
     return KeepMessagesDuration.fromId(getInteger(KEEP_MESSAGES_DURATION, 0));
   }
 
-  public void setKeepMessagesForDuration(@NonNull KeepMessagesDuration duration) {
-    putInteger(KEEP_MESSAGES_DURATION, duration.getId());
+  public int getKeepMessagesDurationId() {
+    return getInteger(KEEP_MESSAGES_DURATION, 0);
   }
 
   public boolean isTrimByLengthEnabled() {
     return getBoolean(THREAD_TRIM_ENABLED, false);
   }
 
-  public void setThreadTrimByLengthEnabled(boolean enabled) {
-    putBoolean(THREAD_TRIM_ENABLED, enabled);
-  }
-
   public int getThreadTrimLength() {
     return getInteger(THREAD_TRIM_LENGTH, 500);
   }
 
-  public void setThreadTrimLength(int length) {
-    putInteger(THREAD_TRIM_LENGTH, length);
+  public void clearOldTrimSettings() {
+    remove(THREAD_TRIM_ENABLED);
+    remove(THREAD_TRIM_LENGTH);
+    remove(KEEP_MESSAGES_DURATION);
   }
 
   public void setSignalBackupDirectory(@NonNull Uri uri) {
     putString(SIGNAL_BACKUP_DIRECTORY, uri.toString());
     putString(SIGNAL_LATEST_BACKUP_DIRECTORY, uri.toString());
+  }
+
+  public long getUniversalHistoryTrimDelay() {
+    return getLong(UNIVERSAL_HISTORY_TRIM_DELAY, Long.MAX_VALUE);
+  }
+
+  public void setUniversalHistoryTrimDelay(long delay) {
+    putLong(UNIVERSAL_HISTORY_TRIM_DELAY, delay);
+  }
+
+  public long getUniversalHistoryTrimLength() {
+    return getLong(UNIVERSAL_HISTORY_TRIM_LENGTH, Long.MAX_VALUE);
+  }
+
+  public void setUniversalHistoryTrimLength(long length) {
+    putLong(UNIVERSAL_HISTORY_TRIM_LENGTH, length);
   }
 
   public void setPreferSystemContactPhotos(boolean preferSystemContactPhotos) {

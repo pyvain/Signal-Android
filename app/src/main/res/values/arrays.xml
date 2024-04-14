@@ -354,6 +354,25 @@
         <item>30</item>
     </integer-array>
 
+    <integer-array name="MessageHistoryLengthSettingsFragment__values">
+        <item>5000</item>
+        <item>1000</item>
+        <item>500</item>
+        <item>100</item>
+    </integer-array>
+
+    <integer-array name="MessageHistoryDelaySettingsFragment__values">
+        <item>31449600</item><!-- 1 year = 365 * 24 * 60 * 60 seconds -->
+        <item>15811200</item><!-- 6 months = 183 * 24 * 60 * 60 seconds -->
+        <item>2592000</item><!-- 30 days = 30 * 24 * 60 * 60 seconds -->
+    </integer-array>
+
+    <string-array name="MessageHistoryDelaySettingsFragment__labels">
+        <item>@string/MessageHistoryDelaySettingsFragment__one_year</item>
+        <item>@string/MessageHistoryDelaySettingsFragment__six_months</item>
+        <item>@string/MessageHistoryDelaySettingsFragment__thirty_days</item>
+    </string-array>
+
     <string-array name="CustomExpireTimerSelectorView__unit_labels">
         <item>@string/CustomExpireTimerSelectorView__seconds</item>
         <item>@string/CustomExpireTimerSelectorView__minutes</item>

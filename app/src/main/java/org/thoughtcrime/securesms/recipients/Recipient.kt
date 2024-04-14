@@ -89,6 +89,8 @@ class Recipient(
   private val messageRingtoneUri: Uri? = null,
   private val callRingtoneUri: Uri? = null,
   val expiresInSeconds: Int = 0,
+  val historyTrimDelay: Long = HISTORY_TRIM_UNIVERSAL,
+  val historyTrimLength: Long = HISTORY_TRIM_UNIVERSAL,
   private val registeredValue: RegisteredState = RegisteredState.UNKNOWN,
   val profileKey: ByteArray? = null,
   val expiringProfileKeyCredential: ExpiringProfileKeyCredential? = null,
@@ -760,6 +762,8 @@ class Recipient(
       isBlocked == other.isBlocked &&
       muteUntil == other.muteUntil &&
       expiresInSeconds == other.expiresInSeconds &&
+      historyTrimDelay == other.historyTrimDelay &&
+      historyTrimLength == other.historyTrimLength &&
       profileAvatarFileDetails == other.profileAvatarFileDetails &&
       isProfileSharing == other.isProfileSharing &&
       hiddenState == other.hiddenState &&
@@ -855,6 +859,8 @@ class Recipient(
 
     private const val MAX_MEMBER_NAMES = 10
 
+    const val HISTORY_TRIM_UNIVERSAL: Long = -1
+    
     /**
      * Returns a [LiveRecipient], which contains a [Recipient] that may or may not be
      * populated with data. However, you can observe the value that's returned to be notified when the

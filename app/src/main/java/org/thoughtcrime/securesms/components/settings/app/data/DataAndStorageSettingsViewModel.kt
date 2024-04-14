@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import org.thoughtcrime.securesms.components.settings.conversation.preferences.Utils.formatHistoryTrimLength
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.keyvalue.SignalStore
 import org.thoughtcrime.securesms.mms.SentMediaQuality
@@ -67,6 +68,8 @@ class DataAndStorageSettingsViewModel(
     roamingAutoDownloadValues = TextSecurePreferences.getRoamingMediaDownloadAllowed(
       ApplicationDependencies.getApplication()
     ),
+    universalHistoryTrimDelay = SignalStore.settings().universalHistoryTrimDelay,
+    universalHistoryTrimLength = SignalStore.settings().universalHistoryTrimLength,
     callDataMode = SignalStore.settings().callDataMode,
     isProxyEnabled = SignalStore.proxy().isProxyEnabled,
     sentMediaQuality = SignalStore.settings().sentMediaQuality

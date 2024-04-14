@@ -3,11 +3,17 @@ package org.thoughtcrime.securesms.components.settings.app.data
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.signal.core.util.concurrent.SignalExecutors
 import org.thoughtcrime.securesms.R
 import org.thoughtcrime.securesms.components.settings.DSLConfiguration
 import org.thoughtcrime.securesms.components.settings.DSLSettingsFragment
 import org.thoughtcrime.securesms.components.settings.DSLSettingsText
 import org.thoughtcrime.securesms.components.settings.configure
+import org.thoughtcrime.securesms.components.settings.conversation.preferences.Utils.formatHistoryTrimDelay
+import org.thoughtcrime.securesms.components.settings.conversation.preferences.Utils.formatHistoryTrimLength
+import org.thoughtcrime.securesms.database.SignalDatabase
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies
 import org.thoughtcrime.securesms.mms.SentMediaQuality
 import org.thoughtcrime.securesms.util.Util
 import org.thoughtcrime.securesms.util.adapter.mapping.MappingAdapter
@@ -99,6 +105,54 @@ class DataAndStorageSettingsFragment : DSLSettingsFragment(R.string.preferences_
 
       textPref(
         summary = DSLSettingsText.from(R.string.DataAndStorageSettingsFragment__sending_high_quality_media_will_use_more_data)
+      )
+
+      dividerPref()
+
+      sectionHeaderPref(R.string.MessageHistorySettingsFragment__message_history)
+
+      textPref(
+        summary = DSLSettingsText.from(R.string.MessageHistorySettingsFragment__description_universal)
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.MessageHistorySettingsFragment__keep_messages),
+        summary = DSLSettingsText.from(state.universalHistoryTrimDelay.formatHistoryTrimDelay(requireContext())),
+        onClick = {
+          Navigation.findNavController(requireView()).safeNavigate(R.id.action_dataAndStorageSettingsFragment_to_messageHistoryDelaySettingsFragment)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.MessageHistorySettingsFragment__conversation_length_limit),
+        summary = DSLSettingsText.from(state.universalHistoryTrimLength.formatHistoryTrimLength(requireContext())),
+        onClick = {
+          Navigation.findNavController(requireView()).safeNavigate(R.id.action_dataAndStorageSettingsFragment_to_messageHistoryLengthSettingsFragment)
+        }
+      )
+
+      clickPref(
+        title = DSLSettingsText.from(R.string.preferences__clear_message_history),
+        onClick = {
+          MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.preferences_storage__clear_message_history)
+            .setMessage(R.string.preferences_storage__this_will_delete_all_message_history_and_media_from_your_device)
+            .setPositiveButton(R.string.delete) { _, _ ->
+              MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.preferences_storage__are_you_sure_you_want_to_delete_all_message_history)
+                .setMessage(R.string.preferences_storage__all_message_history_will_be_permanently_removed_this_action_cannot_be_undone)
+                .setPositiveButton(R.string.preferences_storage__delete_all_now) { _, _ ->
+                  SignalExecutors.BOUNDED.execute {
+                    SignalDatabase.threads.deleteAllConversations();
+                    ApplicationDependencies.getMessageNotifier().updateNotification(requireContext());
+                  }
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ -> }
+                .show();
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ -> }
+            .show();
+        }
       )
 
       dividerPref()

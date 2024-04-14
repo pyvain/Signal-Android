@@ -135,6 +135,8 @@ object RecipientTableCursorUtil {
       messageRingtone = Util.uri(cursor.requireString(RecipientTable.MESSAGE_RINGTONE)),
       callRingtone = Util.uri(cursor.requireString(RecipientTable.CALL_RINGTONE)),
       expireMessages = cursor.requireInt(RecipientTable.MESSAGE_EXPIRATION_TIME),
+      historyTrimDelay = cursor.requireLong(RecipientTable.HISTORY_TRIM_DELAY),
+      historyTrimLength = cursor.requireLong(RecipientTable.HISTORY_TRIM_LENGTH),
       registered = RegisteredState.fromId(cursor.requireInt(RecipientTable.REGISTERED)),
       profileKey = profileKey,
       expiringProfileKeyCredential = expiringProfileKeyCredential,

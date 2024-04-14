@@ -165,6 +165,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
     const val CALL_VIBRATE = "call_vibrate"
     const val MUTE_UNTIL = "mute_until"
     const val MESSAGE_EXPIRATION_TIME = "message_expiration_time"
+    const val HISTORY_TRIM_DELAY = "history_trim_delay"
+    const val HISTORY_TRIM_LENGTH = "history_trim_length"
     const val SEALED_SENDER_MODE = "sealed_sender_mode"
     const val STORAGE_SERVICE_ID = "storage_service_id"
     const val STORAGE_SERVICE_PROTO = "storage_service_proto"
@@ -238,6 +240,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
         $CALL_VIBRATE INTEGER DEFAULT ${VibrateState.DEFAULT.id}, 
         $MUTE_UNTIL INTEGER DEFAULT 0, 
         $MESSAGE_EXPIRATION_TIME INTEGER DEFAULT 0,
+        $HISTORY_TRIM_DELAY INTEGER DEFAULT ${Recipient.HISTORY_TRIM_UNIVERSAL},
+        $HISTORY_TRIM_LENGTH INTEGER DEFAULT ${Recipient.HISTORY_TRIM_UNIVERSAL},
         $SEALED_SENDER_MODE INTEGER DEFAULT 0, 
         $STORAGE_SERVICE_ID TEXT UNIQUE DEFAULT NULL, 
         $STORAGE_SERVICE_PROTO TEXT DEFAULT NULL,
@@ -306,6 +310,8 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       CALL_VIBRATE,
       MUTE_UNTIL,
       MESSAGE_EXPIRATION_TIME,
+      HISTORY_TRIM_DELAY,
+      HISTORY_TRIM_LENGTH,
       SEALED_SENDER_MODE,
       STORAGE_SERVICE_ID,
       MENTION_SETTING,
@@ -1464,6 +1470,25 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       put(MESSAGE_EXPIRATION_TIME, expiration)
     }
     if (update(id, values)) {
+      ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
+    }
+  }
+
+  fun setHistoryTrimDelay(id: RecipientId, days: Long) {
+    val values = ContentValues(1).apply {
+      put(HISTORY_TRIM_DELAY, days)
+    }
+    if (update(id, values)) {
+      ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
+    }
+  }
+
+  fun setHistoryTrimLength(id: RecipientId, length: Long) {
+    val values = ContentValues(1).apply {
+      put(HISTORY_TRIM_LENGTH, length)
+    }
+    if (update(id, values)) {
+      Log.d("setHistoryTrimLength", "updated length=$length")
       ApplicationDependencies.getDatabaseObserver().notifyRecipientChanged(id)
     }
   }
@@ -3856,6 +3881,24 @@ open class RecipientTable(context: Context, databaseHelper: SignalDatabase) : Da
       .where(ID_WHERE, id)
       .run()
       .readToSingleLong(0L)
+  }
+
+  fun getHistoryTrimDelay(id: RecipientId): Long {
+    return readableDatabase
+      .select(HISTORY_TRIM_DELAY)
+      .from(TABLE_NAME)
+      .where(ID_WHERE, id)
+      .run()
+      .readToSingleLong(Recipient.HISTORY_TRIM_UNIVERSAL)
+  }
+
+  fun getHistoryTrimLength(id: RecipientId): Long {
+    return readableDatabase
+      .select(HISTORY_TRIM_LENGTH)
+      .from(TABLE_NAME)
+      .where(ID_WHERE, id)
+      .run()
+      .readToSingleLong(Recipient.HISTORY_TRIM_UNIVERSAL)
   }
 
   /**

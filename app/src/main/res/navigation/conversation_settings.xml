@@ -67,6 +67,20 @@
         </action>
 
         <action
+            android:id="@+id/action_conversationSettingsFragment_to_messageHistorySettingsFragment"
+            app:destination="@id/messageHistorySettingsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit">
+
+            <argument
+                android:name="recipient_id"
+                app:argType="org.thoughtcrime.securesms.recipients.RecipientId" />
+
+        </action>
+
+        <action
             android:id="@+id/action_conversationSettingsFragment_to_permissionsSettingsFragment"
             app:destination="@id/permissionsSettingsFragment"
             app:enterAnim="@anim/fragment_open_enter"
@@ -121,6 +135,51 @@
             app:popExitAnim="@anim/fragment_close_exit" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/messageHistorySettingsFragment"
+        android:name="org.thoughtcrime.securesms.components.settings.conversation.history.MessageHistorySettingsFragment">
+
+        <argument
+            android:name="recipient_id"
+            android:defaultValue="@null"
+            app:argType="org.thoughtcrime.securesms.recipients.RecipientId"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_messageHistorySettingsFragment_to_messageHistoryDelaySettingsFragment"
+            app:destination="@id/app_settings_message_history_delay"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit">
+
+            <argument
+                android:name="recipient_id"
+                app:argType="org.thoughtcrime.securesms.recipients.RecipientId"
+                app:nullable="true" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_messageHistorySettingsFragment_to_messageHistoryLengthSettingsFragment"
+            app:destination="@id/app_settings_message_history_length"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit">
+
+            <argument
+                android:name="recipient_id"
+                app:argType="org.thoughtcrime.securesms.recipients.RecipientId"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <include app:graph="@navigation/app_settings_message_history_delay" />
+    <include app:graph="@navigation/app_settings_message_history_length" />
 
     <fragment
         android:id="@+id/internalDetailsSettingsFragment"
